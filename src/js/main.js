@@ -53,7 +53,7 @@ const addLocation = (ev) => {
     var newImg = document.createElement("img");
     
     if(destination.photo == "") {
-        newImg.src = "/mike_bird.jpg"
+        newImg.src = "mike_bird.jpg"
     } else {
         newImg.src = destination.photo;
     }
