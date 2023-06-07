@@ -3,6 +3,9 @@ import { defineConfig } from 'vite';
 
 export default defineConfig ({
   root: path.resolve(__dirname, 'src'),
+  build: {
+    outDir: '../dist'
+  },
   base:'/vacations-destinations/',
   publicDir: 'public',
   resolve: {
