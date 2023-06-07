@@ -2,6 +2,7 @@
   "name": "nelly_challenge_site",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://suarez2145.github.io/vacations-destinations/",
   "main": "index.js",
   "scripts": {
     "start": "vite",
