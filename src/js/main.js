@@ -1,5 +1,8 @@
 import '../scss/styles.scss'
-import * as bootstrap from 'bootstrap'
+import * as bootstrap from 'bootstrap';
+import {removeCard} from "./removeCard";
+import {openModal} from "./openModal";
+import {editCard} from "./editCard";
 
 let destinations = {};
 let newHeader = "My Wishlist";
@@ -14,12 +17,6 @@ let cardTitleId;
 let cardSubtitleId;
 let cardTextId;
 
-let oldCardPhoto;
-let oldCardName;
-let oldCardLocation;
-let oldCardDescription;
-
-const myModal = new bootstrap.Modal(document.getElementById('editModal'));
 
 const addLocation = (ev) => {
     ev.preventDefault();
@@ -35,7 +32,6 @@ const addLocation = (ev) => {
     testObj.description = document.getElementById('description').value;
 
     
-
     // destinationsArr.push(destination); 
     let parent = document.getElementById("destination-cont");
 
@@ -136,70 +132,9 @@ const addLocation = (ev) => {
     // returning the name of the current div that our card is inside of as newDivName 
     newDivName = newObjPropName;
 
-    console.log(destinations);
-    return [newDivName, cardTitleId, cardSubtitleId, cardTextId];
+    // return [newDivName, cardTitleId, cardSubtitleId, cardTextId];
 
 };
-
-
-
-
-const removeCard = (ev) => {
-    /// searching from the button click element up to the closest div that matches with a class name of "delete me"
-    let testDelete = ev.target.closest(".delete-me");
-    // using the remove method to delete the node we assigned to testDelete
-    testDelete.remove();
-    
-}
-
-const openModal = (ev) => {
-    // calling the show function imported from bootstrap JS to open my modal 
-    myModal.show();
-
-    // retrieving the current card ( I reused the delete-me class to find the new card )
-    let testTarget = ev.target.closest(".delete-me");
-    
-    // var element = document.getElementById("myid");
-    oldCardPhoto = testTarget.childNodes[0];
-    oldCardName = testTarget.childNodes[1].childNodes[0];
-    oldCardLocation = testTarget.childNodes[1].childNodes[1];
-    oldCardDescription = testTarget.childNodes[1].childNodes[2];
-
-    return [oldCardPhoto,oldCardName,oldCardLocation,oldCardDescription];
-
-}
-
-const editCard = (ev) => {
-    let newName = document.getElementById("modal-destination").value;
-    let newLocation = document.getElementById("modal-location").value;
-    let newPhoto = document.getElementById("modal-photo").value;
-    let newDescription = document.getElementById("modal-description").value;
-
-    // make sure new input fields are not empty before we update them
-    if(newPhoto != "") {
-        oldCardPhoto.src = newPhoto;
-    }
-
-    if(newName != "") {
-        oldCardName.innerHTML = newName;
-    }
-
-    if(newLocation != "") {
-        oldCardLocation.innerHTML = newLocation;
-    }
-
-    if(newDescription != "") {
-        oldCardDescription.innerHTML = newDescription;
-    }
-
-
-    document.getElementById("update-form").reset();
-    // prevent submit button function from "bubbling" and calling other submit eventListeners
-    ev.preventDefault();
-}
-
-
-
 
 
 document.addEventListener('DOMContentLoaded',()=> {
