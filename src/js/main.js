@@ -1,8 +1,12 @@
-import '../scss/styles.scss'
+import '../scss/styles.scss';
 import * as bootstrap from 'bootstrap';
 import {removeCard} from "./removeCard";
 import {openModal} from "./openModal";
 import {editCard} from "./editCard";
+var require = {
+    baseUrl: "js/"
+};
+
 
 let destinations = {};
 let newHeader = "My Wishlist";
@@ -20,21 +24,28 @@ let cardTextId;
 
 const addLocation = (ev) => {
     ev.preventDefault();
+
+
+    let userDestination = document.getElementById('destination-name').value;
+    let userLocation = document.getElementById('location').value;
+    let newObjHttp;
+    let endpoint = `https://api.unsplash.com/search/photos/?client_id=${import.meta.env.VITE_ACCESS_K}&query=${userDestination}-${userLocation}`;
+
+
+
+
+
     document.getElementById("destination-header").innerHTML = newHeader;
     let currntDesLgth = Object.keys(destinations).length + 1;
     let testObj = {};
-
     
-
     testObj.name = document.getElementById('destination-name').value;
-    testObj.location = document.getElementById('location').value;
-    testObj.photo = document.getElementById('photo').value;
+    testObj.location = document.getElementById('location').value;     
     testObj.description = document.getElementById('description').value;
 
     
-    // destinationsArr.push(destination); 
-    let parent = document.getElementById("destination-cont");
 
+    let parent = document.getElementById("destination-cont");
 
     // create container for cards only once when the destinations array has only 1 entry
     let cardsWrapper = document.createElement("div");
@@ -46,7 +57,7 @@ const addLocation = (ev) => {
 
 
     // creating card conainer
-    let newDivParent = document.getElementById("cards-wrapper");        // had to retrieve the cards-wrapper div so newCardParent Knew what to append to ( took forever to realize this )
+    let newDivParent = document.getElementById("cards-wrapper");  // had to retrieve the cards-wrapper div so newCardParent Knew what to append to ( took forever to realize this )
     let newCardCont = document.createElement("div");        
     
     newCardCont.className = "delete-me card single-card-cont col-6 col-sm mt-4 p-0";                        
@@ -60,6 +71,7 @@ const addLocation = (ev) => {
     let addProp = (obj, propName, testObj) => {
         obj[propName] = testObj;
     }
+    
 
     // calling my new nested object creating function on the global destinations object
     addProp(destinations, newObjPropName, testObj);
@@ -70,11 +82,28 @@ const addLocation = (ev) => {
     // creating img that goes on top of card
     let newImg = document.createElement("img");
 
-    if(destinations[newObjPropName].photo == "") {
-        newImg.src = "mike_bird.jpg"
-    } else {
-        newImg.src = destinations[newObjPropName].photo;
-    }
+
+    // *************testing out promise 
+
+    fetch(endpoint)
+    .then((response) => response.json())
+    .then((jsonData) => {
+        let objArr = jsonData.results;
+        console.log(jsonData);
+        // using length of the nested array in the object that my request to the api returns and random to select an index from 0 to the end of the array
+        let randIndex = objArr[Math.floor(Math.random() * jsonData.results.length)]; 
+        newObjHttp = randIndex.urls.small;
+        newImg.src = newObjHttp;
+    })
+    .catch((error) => {
+        console.log("Error: " + error);
+});
+
+
+    // *************testing out promise 
+
+
+
     newImg.className = "card-img-top";
     newImg.alt = "...";
     newCardParent.appendChild(newImg);

@@ -1,5 +1,6 @@
 const path = require('path')
-import { defineConfig } from 'vite';
+import { defineConfig} from 'vite';
+
 
 export default defineConfig ({
   root: path.resolve(__dirname, 'src'),
@@ -17,4 +18,8 @@ export default defineConfig ({
     port: 8080,
     hot: true
   }
-})
+});
+
+
+
+
