@@ -5,7 +5,6 @@ export const getImage = async (someImageNode,userInputLocation,userInputdestinat
     const response = await fetch(endpoint);
     const responseObj = await response.json();
     let respObjRes = responseObj.data.results;
-    console.log(respObjRes);
     let randIndex = respObjRes[Math.floor(Math.random() * respObjRes.length)]; 
     newObjHttp = randIndex.urls.small;
     someImageNode.src = newObjHttp;
