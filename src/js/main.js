@@ -3,6 +3,8 @@ import * as bootstrap from 'bootstrap';
 import {removeCard} from "./removeCard";
 import {openModal} from "./openModal";
 import {editCard} from "./editCard";
+import {getImage} from "./unsplRequest";
+
 var require = {
     baseUrl: "js/"
 };
@@ -22,18 +24,12 @@ let cardSubtitleId;
 let cardTextId;
 
 
-const addLocation = (ev) => {
+export const addLocation = (ev) => {
     ev.preventDefault();
 
 
     let userDestination = document.getElementById('destination-name').value;
     let userLocation = document.getElementById('location').value;
-    let newObjHttp;
-    let endpoint = `https://api.unsplash.com/search/photos/?client_id=${import.meta.env.VITE_ACCESS_K}&query=${userDestination}-${userLocation}`;
-
-
-
-
 
     document.getElementById("destination-header").innerHTML = newHeader;
     let currntDesLgth = Object.keys(destinations).length + 1;
@@ -42,8 +38,6 @@ const addLocation = (ev) => {
     testObj.name = document.getElementById('destination-name').value;
     testObj.location = document.getElementById('location').value;     
     testObj.description = document.getElementById('description').value;
-
-    
 
     let parent = document.getElementById("destination-cont");
 
@@ -82,26 +76,8 @@ const addLocation = (ev) => {
     // creating img that goes on top of card
     let newImg = document.createElement("img");
 
-
-    // *************testing out promise 
-
-    fetch(endpoint)
-    .then((response) => response.json())
-    .then((jsonData) => {
-        let objArr = jsonData.results;
-        console.log(jsonData);
-        // using length of the nested array in the object that my request to the api returns and random to select an index from 0 to the end of the array
-        let randIndex = objArr[Math.floor(Math.random() * jsonData.results.length)]; 
-        newObjHttp = randIndex.urls.small;
-        newImg.src = newObjHttp;
-    })
-    .catch((error) => {
-        console.log("Error: " + error);
-});
-
-
-    // *************testing out promise 
-
+    //********** function that makes my api call the unsplash with user inputs ****************
+    getImage(newImg,userLocation,userDestination);
 
 
     newImg.className = "card-img-top";
@@ -160,8 +136,6 @@ const addLocation = (ev) => {
     document.getElementById("destination-form").reset();
     // returning the name of the current div that our card is inside of as newDivName 
     newDivName = newObjPropName;
-
-    // return [newDivName, cardTitleId, cardSubtitleId, cardTextId];
 
 };
 
