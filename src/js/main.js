@@ -54,7 +54,7 @@ export const addLocation = (ev) => {
     let newDivParent = document.getElementById("cards-wrapper");  // had to retrieve the cards-wrapper div so newCardParent Knew what to append to ( took forever to realize this )
     let newCardCont = document.createElement("div");        
     
-    newCardCont.className = "delete-me card single-card-cont col-6 col-sm mt-4 p-0";                        
+    newCardCont.className = "delete-me card single-card-cont col-6 col-sm mt-4 p-0 rounded-0";                        
     newCardCont.id = "newCard" + newCardContCounter++;                    
     newCardCont.style = "width: 18rem"
     newDivParent.appendChild(newCardCont);
@@ -80,7 +80,7 @@ export const addLocation = (ev) => {
     getImage(newImg,userLocation,userDestination);
 
 
-    newImg.className = "card-img-top";
+    newImg.className = "card-img-top rounded-0";
     newImg.alt = "...";
     newCardParent.appendChild(newImg);
 
@@ -124,13 +124,18 @@ export const addLocation = (ev) => {
     let newCardButtonEdit = document.createElement("a");
     let newCardButtonRemove = document.createElement("a");
     newCardButtonEdit.addEventListener("click", openModal);
-    newCardButtonEdit.className = "btn btn-warning";
+    newCardButtonEdit.className = "btn btn-success rounded-0";
     newCardButtonRemove.addEventListener("click", removeCard);
-    newCardButtonRemove.className = "btn btn-danger ms-5";
+    newCardButtonRemove.className = "btn btn-danger rounded-0";
     newCardButtonRemove.innerHTML = "Remove"
     newCardButtonEdit.innerHTML = "Edit";
-    cardBodyParent.appendChild(newCardButtonEdit,newCardButtonRemove);
-    cardBodyParent.appendChild(newCardButtonRemove);
+    // adding to the main card instead of card inner body
+    newCardParent.appendChild(newCardButtonEdit,newCardButtonRemove);
+    newCardParent.appendChild(newCardButtonRemove);
+
+    // old code for inner body buttons
+    // cardBodyParent.appendChild(newCardButtonEdit,newCardButtonRemove);
+    // cardBodyParent.appendChild(newCardButtonRemove);
 
 
     document.getElementById("destination-form").reset();
