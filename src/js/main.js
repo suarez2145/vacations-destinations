@@ -4,7 +4,6 @@ import {removeCard} from "./removeCard";
 import {openModal} from "./openModal";
 import {editCard} from "./editCard";
 import {getImage} from "./unsplRequest";
-import { decodeBlurHash } from 'fast-blurhash';
 
 var require = {
     baseUrl: "js/"
@@ -45,7 +44,7 @@ export const addLocation = (ev) => {
     // create container for cards only once when the destinations array has only 1 entry
     let cardsWrapper = document.createElement("div");
     if(currntDesLgth <= 1) {
-        cardsWrapper.className = "container cards-wrapper row justify-content-center g-0";
+        cardsWrapper.className = "container wrapper_content_fit cards-wrapper row justify-content-center g-0";
         cardsWrapper.id = "cards-wrapper";
         parent.appendChild(cardsWrapper);
     };
@@ -76,14 +75,23 @@ export const addLocation = (ev) => {
 
     // creating img that goes on top of card
     let newImg = document.createElement("img");
+    const canvas = document.createElement("canvas");
+    
 
     //********** function that makes my api call the unsplash with user inputs ****************
-    getImage(newImg,userLocation,userDestination);
+    getImage(newImg,canvas,userLocation,userDestination);
 
-
-    newImg.className = "card-img-top rounded-0";
-    newImg.alt = "...";
-    newCardParent.appendChild(newImg);
+    // creating the canvas element that the blurhash image will be drawn on 
+    newCardParent.append(canvas);
+    
+    // set timeout so the blurhash has time to showoff
+    setTimeout(() => {
+        canvas.remove();
+        newImg.className = "card-img-top rounded-0";
+        newImg.alt = "...";
+        newCardParent.prepend(newImg);
+    }, "3000");
+    
 
     // creating card-body container
     let newCard = document.createElement("div");

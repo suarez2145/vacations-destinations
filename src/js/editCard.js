@@ -7,9 +7,10 @@ export const editCard = (ev) => {
     let newName = document.getElementById("modal-destination").value;
     let newLocation = document.getElementById("modal-location").value;
     let newDescription = document.getElementById("modal-description").value;
+    const canvas = document.createElement("canvas");
 
     if(newLocation != "" && newName !="") {
-        getImage(oldDivObj.oldCardPhoto,newLocation,newName);
+        getImage(oldDivObj.oldCardPhoto,canvas,newLocation,newName);
         oldDivObj.oldCardName.innerHTML = newName;
         oldDivObj.oldCardLocation.innerHTML = newLocation;
     }
