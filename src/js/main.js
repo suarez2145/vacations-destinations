@@ -4,6 +4,7 @@ import {removeCard} from "./removeCard";
 import {openModal} from "./openModal";
 import {editCard} from "./editCard";
 import {getImage} from "./unsplRequest";
+import { decodeBlurHash } from 'fast-blurhash';
 
 var require = {
     baseUrl: "js/"
@@ -90,9 +91,15 @@ export const addLocation = (ev) => {
     newCard.id = "card-body" + newCardBodyCounter++;
     newCardCont.appendChild(newCard);
 
+    // need to add blur image creation here
+
+
+
     // creating card-content
     let cardBodyParent = document.getElementById(newCard.id);
     let newCardBody = document.createElement("h5");
+
+
     newCardBody.className = "card-title";
     newCardBody.id = "card-title" + cardTitleCounter++;
     newCardBody.innerHTML = destinations[newObjPropName].name;
