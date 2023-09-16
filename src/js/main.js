@@ -73,34 +73,37 @@ export const addLocation = (ev) => {
 
     let newCardParent = document.getElementById(newCardCont.id);
 
+
+    
+
     // creating img that goes on top of card
     let newImg = document.createElement("img");
     const canvas = document.createElement("canvas");
     
 
-    //********** function that makes my api call the unsplash with user inputs ****************
+    const loadTag = document.createElement("div");
+    loadTag.id = "loaderDiv";
+    loadTag.className = "loader";
+    newCardParent.append(loadTag);
+
     getImage(newImg,canvas,userLocation,userDestination);
 
     // creating the canvas element that the blurhash image will be drawn on 
     newCardParent.append(canvas);
-    
+
+
     // set timeout so the blurhash has time to showoff
     setTimeout(() => {
         canvas.remove();
         newImg.className = "card-img-top rounded-0";
-        newImg.alt = "...";
         newCardParent.prepend(newImg);
     }, "3000");
-    
 
     // creating card-body container
     let newCard = document.createElement("div");
     newCard.className = "card-body g-0";
     newCard.id = "card-body" + newCardBodyCounter++;
     newCardCont.appendChild(newCard);
-
-    // need to add blur image creation here
-
 
 
     // creating card-content
