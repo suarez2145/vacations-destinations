@@ -55,8 +55,8 @@ export const addLocation = (ev) => {
     let newCardCont = document.createElement("div");        
     
     newCardCont.className = "delete-me card single-card-cont col-6 col-sm mt-4 p-0 rounded-0";                        
-    newCardCont.id = "newCard" + newCardContCounter++;                    
-    newCardCont.style = "width: 18rem"
+    newCardCont.id = "newCard" + newCardContCounter++;                
+    newCardCont.style = "width: 12rem"
     newDivParent.appendChild(newCardCont);
 
     let newObjPropName = newCardCont.id;
